@@ -1,56 +1,35 @@
 <template>
   <v-card
-    light
+    outlined
     elevation="2"
     :disabled="
       Object.values(inputData).includes(input.disabled) ||
       $store.state.runInfo.active == true
     "
   >
-    <div style="text-align: right">
-      <v-icon
-        @click="
-          $store.commit('updateNav', [
-            'input_edit',
-            $attrs.serviceIndex,
-            $attrs.inputIndex,
-          ])
-        "
-        x-small
-        color="blue"
-      >
-        mdi-pencil</v-icon
-      ><v-icon
-        style="margin-right: 3px"
-        @click="deleteInput()"
-        x-small
-        color="blue"
-      >
-        mdi-close</v-icon
-      >
-    </div>
     <v-tooltip top>
       <template v-slot:activator="{ on }">
-        <v-card-title
-          v-on="on"
-          style="justify-content: center; padding: 10px 0px"
-          >{{ input.name.replace(/_/g, " ") }}</v-card-title
+        <v-card-text
+          style="height: 100%"
+          class="d-flex align-center justify-center"
         >
+          <v-btn
+            v-on="on"
+            @click="$store.commit('updateNav', ['input', $attrs.serviceIndex])"
+            outlined
+            x-large
+            class="mx-25"
+            fab
+            dark
+            tile
+            color="grey"
+          >
+            <v-icon dark> mdi-plus </v-icon>
+          </v-btn>
+        </v-card-text>
       </template>
       <span>{{ input.tooltip }}</span>
     </v-tooltip>
-    <v-card-actions style="justify-content: center">
-      <v-row style="justify-content: center"
-        ><v-col style="padding: 0" cols="6" offset="4">
-          <v-switch
-            style="padding-top: 10%"
-            @change="inputUpdate(input.value)"
-            v-model="input.value"
-            color="teal accent-3"
-          ></v-switch>
-        </v-col>
-      </v-row>
-    </v-card-actions>
   </v-card>
 </template>
 
@@ -73,11 +52,6 @@ export default {
     },
   },
   methods: {
-    deleteInput() {
-      this.$store.state.template_workflow[
-        this.$attrs.serviceIndex
-      ].Inputs.splice(this.$attrs.inputIndex, 1);
-    },
     inputUpdate(value) {
       if (this.$route.params.workflowName) {
         this.$store.commit("premadeInputUpdate", {

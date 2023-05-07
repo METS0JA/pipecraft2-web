@@ -7,11 +7,33 @@
       $store.state.runInfo.active == true
     "
   >
+    <div style="text-align: right">
+      <v-icon
+        @click="
+          $store.commit('updateNav', [
+            'input_edit',
+            $attrs.serviceIndex,
+            $attrs.inputIndex,
+          ])
+        "
+        x-small
+        color="blue"
+      >
+        mdi-pencil</v-icon
+      ><v-icon
+        style="margin-right: 3px"
+        @click="deleteInput()"
+        x-small
+        color="blue"
+      >
+        mdi-close</v-icon
+      >
+    </div>
     <v-tooltip top>
       <template v-slot:activator="{ on }">
         <v-card-title
           v-on="on"
-          style="justify-content: center; padding: 10px 0px"
+          style="justify-content: center; padding: 3px 0px"
           ><v-checkbox
             @change="toggleActive(input.active)"
             hide-details
@@ -56,10 +78,9 @@ export default {
           this.$attrs.serviceIndex
         ][this.$attrs.list][this.$attrs.inputIndex];
       } else {
-        return this.$store.state.selectedSteps[this.$route.params.order]
-          .services[this.$attrs.serviceIndex][this.$attrs.list][
-          this.$attrs.inputIndex
-        ];
+        return this.$store.state.template_workflow[this.$attrs.serviceIndex][
+          this.$attrs.list
+        ][this.$attrs.inputIndex];
       }
     },
     inputData() {
@@ -67,6 +88,11 @@ export default {
     },
   },
   methods: {
+    deleteInput() {
+      this.$store.state.template_workflow[
+        this.$attrs.serviceIndex
+      ].Inputs.splice(this.$attrs.inputIndex, 1);
+    },
     toggleActive(value) {
       if (this.$route.params.workflowName) {
         this.$store.commit("premadeToggleActive", {

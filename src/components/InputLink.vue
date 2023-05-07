@@ -7,6 +7,28 @@
       $store.state.runInfo.active == true
     "
   >
+    <div style="text-align: right">
+      <v-icon
+        @click="
+          $store.commit('updateNav', [
+            'input_edit',
+            $attrs.serviceIndex,
+            $attrs.inputIndex,
+          ])
+        "
+        x-small
+        color="blue"
+      >
+        mdi-pencil</v-icon
+      ><v-icon
+        style="margin-right: 3px"
+        @click="deleteInput()"
+        x-small
+        color="blue"
+      >
+        mdi-close</v-icon
+      >
+    </div>
     <v-tooltip top>
       <template v-slot:activator="{ on }">
         <v-card-actions v-on="on" style="justify-content: center">
@@ -14,7 +36,7 @@
             ><v-col style="padding: 0" cols="10" offset="1">
               <v-btn
                 @click="openLink(input.value)"
-                style="margin-top: 30%; justify-content: center"
+                style="margin-top: 20%; justify-content: center"
                 class="centered-input"
                 solo
                 block
@@ -32,7 +54,6 @@
 </template>
 
 <script>
-const { shell } = require("electron");
 export default {
   computed: {
     input() {
@@ -41,10 +62,9 @@ export default {
           this.$attrs.serviceIndex
         ][this.$attrs.list][this.$attrs.inputIndex];
       } else {
-        return this.$store.state.selectedSteps[this.$route.params.order]
-          .services[this.$attrs.serviceIndex][this.$attrs.list][
-          this.$attrs.inputIndex
-        ];
+        return this.$store.state.template_workflow[this.$attrs.serviceIndex][
+          this.$attrs.list
+        ][this.$attrs.inputIndex];
       }
     },
     inputData() {
@@ -52,8 +72,13 @@ export default {
     },
   },
   methods: {
+    deleteInput() {
+      this.$store.state.template_workflow[
+        this.$attrs.serviceIndex
+      ].Inputs.splice(this.$attrs.inputIndex, 1);
+    },
     openLink(value) {
-      shell.openExternal(value);
+      console.log(value);
     },
     inputUpdate(value) {
       if (this.$route.params.workflowName) {
