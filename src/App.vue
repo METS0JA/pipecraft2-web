@@ -291,7 +291,14 @@
               class="mr-3"
               outlined
               color="pink accent-1"
-              >CANCEL</v-btn
+              ><v-icon style="margin-right: 3px" small color="pink accent-1">
+                mdi-close</v-icon
+              ></v-btn
+            >
+            <v-btn small class="mr-3" outlined color="teal accent-2"
+              ><v-icon style="margin-right: 3px" small color="teal accent-2">
+                mdi-check</v-icon
+              ></v-btn
             >
           </div>
         </v-list-item>
@@ -427,6 +434,13 @@
           ></v-select>
         </v-list-item>
       </v-list>
+      <div style="bottom: 10px; right: 10px; position: fixed">
+        <v-btn @click="save" small class="mr-3" outlined color="teal accent-2"
+          ><v-icon style="margin-right: 3px" small color="teal accent-2"
+            >mdi-content-save</v-icon
+          ></v-btn
+        >
+      </div>
     </v-navigation-drawer>
     <v-main style="background: grey">
       <transition name="fade">
@@ -439,6 +453,28 @@
 <script>
 export default {
   methods: {
+    save() {
+      var data = JSON.stringify(this.$store.state.template_workflow);
+      var filename = "workflow_template.json";
+      var type = "application/json";
+      var file = new Blob([data], { type: type });
+      if (window.navigator.msSaveOrOpenBlob)
+        // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+      else {
+        // Others
+        var a = document.createElement("a"),
+          url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () {
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        }, 0);
+      }
+    },
     up(value, name) {
       this.header[name] = value;
     },

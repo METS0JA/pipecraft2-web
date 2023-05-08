@@ -50,7 +50,7 @@
                   :rules="input.rules"
                   style="text-transform: uppercase"
                   @keydown="input.iupac ? IUPAC($event) : void 0"
-                  v-model="input.value"
+                  v-model="input.value.split(',')"
                 ></v-combobox>
               </v-col>
             </v-row>

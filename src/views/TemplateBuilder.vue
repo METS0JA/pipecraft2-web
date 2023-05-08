@@ -194,10 +194,10 @@
               v-for="(input, i) in service.Inputs"
               :key="input.name"
               cols="12"
-              :xl="input.type === 'combobox' ? 4 : 2"
-              :lg="input.type === 'combobox' ? 6 : 3"
-              :md="input.type === 'combobox' ? 8 : 4"
-              :sm="input.type === 'combobox' ? 12 : 3"
+              :xl="input.type === 'combo' ? 4 : 2"
+              :lg="input.type === 'combo' ? 6 : 3"
+              :md="input.type === 'combo' ? 8 : 4"
+              :sm="input.type === 'combo' ? 12 : 3"
               style="height: fit-content; width: fit-content"
             >
               <v-container v-if="input.type === 'blank'"
@@ -260,7 +260,7 @@
                   :inputIndex="i"
                   :list="'Inputs'"
               /></v-container>
-              <v-container v-if="input.type === 'combobox'"
+              <v-container v-if="input.type === 'combo'"
                 ><InputCombo
                   :serviceIndex="index"
                   :inputIndex="i"

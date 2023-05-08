@@ -37,7 +37,7 @@
               <v-select
                 @change="inputUpdate(input.value)"
                 v-model="input.value"
-                :items="input.items"
+                :items="input.items.split(',')"
                 :label="input.name"
                 multiple
               >
@@ -113,7 +113,7 @@ export default {
       return this.$store.state.data;
     },
     All() {
-      return this.input.value.length === this.input.items.length;
+      return this.input.value.length === this.input.items.split(",").length;
     },
     Some() {
       return this.input.value.length > 0 && !this.All;
@@ -136,7 +136,7 @@ export default {
           this.input.value = [];
           this.inputUpdate(this.input.value);
         } else {
-          this.input.value = this.input.items.slice();
+          this.input.value = this.input.items.split(",").slice();
           this.inputUpdate(this.input.value);
         }
       });

@@ -168,7 +168,7 @@ export default new Vuex.Store({
           {
             name: "boolselect_example",
             value: "2",
-            items: ["0", "1", "2", "3", "4"],
+            items: "0, 1, 2, 3, 4",
             tooltip: "example tooltip",
             disabled: "never",
             type: "boolselect",
@@ -176,14 +176,14 @@ export default new Vuex.Store({
           {
             name: "select_example",
             value: "2",
-            items: ["0", "1", "2", "3", "4"],
+            items: "10,22,45,66,9",
             tooltip: "example tooltip",
             disabled: "never",
             type: "select",
           },
           {
             name: "chip_example",
-            value: [],
+            value: "primer1, primer2",
             tooltip: "example tooltip",
             disabled: "never",
             type: "chip",
@@ -192,11 +192,11 @@ export default new Vuex.Store({
           },
           {
             name: "combo_example",
-            items: ["option0", "option1", "option2", "option3"],
+            items: "option0, option1, option2, option3",
             value: ["option1"],
             tooltip: "example tooltip",
             disabled: "never",
-            type: "combobox",
+            type: "combo",
           },
           {
             name: "slide_example",

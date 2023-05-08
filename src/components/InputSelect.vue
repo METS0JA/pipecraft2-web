@@ -46,7 +46,7 @@
             v-model="input.value"
             style="padding-top: 10%"
             @change="inputUpdate(input.value)"
-            :items="input.items"
+            :items="input.items.split(',')"
             outlined
           ></v-select>
         </v-col>
